@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+    {% if session["logged_in"] %}
+
+        Welcome home, {{ session["username"] }}!
+        <button onclick="location.href = './logout'" id="logout_button">Logout</button>
+
+    {% else %}
+    <button onclick="location.href = './login'" id="login_button">Login</button>
+    <button onclick="location.href = './register'" id="register_button">Register</button>
+    {% endif %}
+
+{% endblock %}
