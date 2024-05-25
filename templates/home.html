@@ -6,8 +6,30 @@
     {% if session["logged_in"] %}
 
         Welcome home, {{ session["username"] }}!
-        <button onclick="location.href = './logout'" id="logout_button">Logout</button>
-
+        <button onclick="location.href = './logout'" id="logout_button">Logout</button><br>
+        <button onclick="location.href = './create_plan'" id="create_plan_button">Create new plan</button><br>
+        
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.plan_code.label }}<br>
+                {{ form.plan_code(size=32) }}<br>
+                {% for error in form.plan_code.errors %}
+                    <span style="color: red;">[{{ error }}]</span><br>
+                {% endfor %}
+            </div>
+            <div>
+                <input type="submit" value="Join a plan">
+            </div>
+        </form>
+        
+        <ul class="my_plan_list">
+            {% for plan in plans %}
+                <li class="my_plan_element">
+                    <button onclick="location.href = './plan/{{ plan.plan_code }}'" id="my_plan_button">{{ plan.name }}</button>
+                </li>
+            {% endfor %}
+        </ul>
     {% else %}
     <button onclick="location.href = './login'" id="login_button">Login</button>
     <button onclick="location.href = './register'" id="register_button">Register</button>

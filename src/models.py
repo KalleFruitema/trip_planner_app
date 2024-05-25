@@ -12,7 +12,12 @@ class Plan(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text)
+    plan_code = db.Column(db.String(36), unique=True, nullable=False)
+    start_date = db.Column(db.Date, nullable=False)
+    end_date = db.Column(db.Date, nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
+    owner = db.relationship('User', foreign_keys=[owner_id])
     users = db.relationship('User', secondary='plans_users', backref=db.backref('plans', lazy='dynamic'))
 
 plans_users = db.Table('plans_users',

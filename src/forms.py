@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import DateField, SubmitField, StringField, PasswordField
+from wtforms import DateField, SubmitField, StringField, PasswordField, SelectField
 from wtforms.validators import DataRequired, Length, EqualTo
 
 
@@ -15,8 +15,15 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
     
-    
-class TimespanSelectionForm(FlaskForm):
-    start_date = DateField('start_date', format='%d-%m-%Y')
-    end_date = DateField('end_date', format='%d-%m-%Y')
+
+class JoinPlanForm(FlaskForm):
+    plan_code = StringField('Plan Code')
     submit = SubmitField('Submit')
+    
+
+class CreatePlanForm(FlaskForm):
+    name = StringField('Plan name', validators=[DataRequired()])
+    description = StringField('Plan description (optional)')
+    start_date = DateField('Start date', format='%Y-%m-%d', validators=[DataRequired()])
+    end_date = DateField('End date', format='%Y-%m-%d', validators=[DataRequired()])
+    submit = SubmitField('Create plan')

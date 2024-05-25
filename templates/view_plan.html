@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ plan.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ plan.name }}</h1>
+    <p><strong>Description:</strong> {{ plan.description }}</p>
+    <p><strong>Start Date:</strong> {{ plan.start_date }}</p>
+    <p><strong>End Date:</strong> {{ plan.end_date }}</p>
+    <p><strong>Plan Code:</strong> {{ plan.plan_code }}</p>
+
+    <h2>Users in this Plan:</h2>
+    <ul>
+        {% for user in plan.users %}
+            <li>{{ user.username }}</li> 
+            {% if viewer.id == plan.owner_id %}
+                {% if user.id != plan.owner_id %}
+                    <form method="POST">
+                        <button type="submit" id="kick_button" name="to_kick_id" value="{{ user.id }}">Kick</button>
+                    </form>
+                {% else %}
+                    (Owner)
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <button onclick="location.href = 'plan/{{ plan.plan_code }}/leave'" id="leave_button">Leave plan</button>
+    
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Create plan{% endblock %}
+
+{% block content %}
+    <h1>Create a New Plan</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label for="name">{{ form.name.label }}</label>
+            {{ form.name(class="form-control", id="name") }}
+            {% if form.name.errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.name.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="description">{{ form.description.label }}</label>
+            {{ form.description(class="form-control", id="description") }}
+        </div>
+        <div class="form-group">
+            <label for="start_date">{{ form.start_date.label }}</label>
+            {{ form.start_date(class="form-control", id="start_date", type="date") }}
+            {% if form.start_date.errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.start_date.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="end_date">{{ form.end_date.label }}</label>
+            {{ form.end_date(class="form-control", id="end_date", type="date") }}
+            {% if form.end_date.errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.end_date.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create plan">
+        </div>
+    </form>
+{% endblock %}
