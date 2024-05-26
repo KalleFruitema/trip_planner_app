@@ -6,8 +6,8 @@
     {% if session["logged_in"] %}
 
         Welcome home, {{ session["username"] }}!
-        <button onclick="location.href = './logout'" id="logout_button">Logout</button><br>
-        <button onclick="location.href = './create_plan'" id="create_plan_button">Create new plan</button><br>
+        <button onclick="window.location.href = '/logout'" id="logout_button">Logout</button><br>
+        <button onclick="window.location.href = '/create_plan'" id="create_plan_button">Create new plan</button><br>
         
         <form method="POST">
             {{ form.hidden_tag() }}
@@ -31,8 +31,8 @@
             {% endfor %}
         </ul>
     {% else %}
-    <button onclick="location.href = './login'" id="login_button">Login</button>
-    <button onclick="location.href = './register'" id="register_button">Register</button>
+    <button onclick="window.location.href = '/login'" id="login_button">Login</button>
+    <button onclick="window.location.href = '/register'" id="register_button">Register</button>
     {% endif %}
 
 {% endblock %}

@@ -107,11 +107,29 @@ def leave_plan(plan_code):
             plan.users.remove(user)
             db.session.commit()
             flash('You have left the plan.', 'success')
+            return redirect(url_for("home"))
         else:
             flash('You are not a member of this plan.', 'danger')
     else:
         flash('You need to be logged in to leave a plan.', 'danger')
-    return render_template('view_plan.html', plan=plan)
+    return redirect(url_for("view_plan"))
+
+
+@app.route('/plan/<plan_code>/disband', methods=['GET', 'POST'])
+def disband_plan(plan_code):
+    plan = Plan.query.filter_by(plan_code=plan_code).first_or_404()
+    user = User.query.filter_by(username=session['username']).first()
+    if user:
+        if plan and user in plan.users:
+            db.session.delete(plan)
+            db.session.commit()
+            flash('You have disbanded the plan.', 'success')
+            return redirect(url_for("home"))
+        else:
+            flash('You are not a member of this plan.', 'danger')
+    else:
+        flash('You need to be logged in as the owner to disband a plan.', 'danger')
+    return redirect(url_for("view_plan"))
 
 
 @app.route("/", methods=['GET', 'POST'])

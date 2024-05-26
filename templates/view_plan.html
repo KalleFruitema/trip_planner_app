@@ -24,7 +24,10 @@
             {% endif %}
         {% endfor %}
     </ul>
-
-    <button onclick="location.href = 'plan/{{ plan.plan_code }}/leave'" id="leave_button">Leave plan</button>
+    {% if viewer.id == plan.owner_id %}
+        <button onclick="window.location.href = '/plan/{{ plan.plan_code }}/disband'" id="leave_button">Disband plan</button>
+    {% else %}
+        <button onclick="window.location.href = '/plan/{{ plan.plan_code }}/leave'" id="leave_button">Leave plan</button>
+    {% endif %}
     
 {% endblock %}
