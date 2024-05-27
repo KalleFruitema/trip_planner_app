@@ -83,7 +83,7 @@ def create_plan():
                            form=form)
     
     
-@app.route('/plan/<plan_code>', methods=['GET', 'POST'])
+@app.route('/plan/<plan_code>/overview', methods=['GET', 'POST'])
 def view_plan(plan_code):
     plan = Plan.query.filter_by(plan_code=plan_code).first_or_404()
     user = User.query.filter_by(username=session['username']).first()
@@ -132,7 +132,7 @@ def disband_plan(plan_code):
     return redirect(url_for("view_plan"))
 
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/home", methods=['GET', 'POST'])
 def home():
     form = JoinPlanForm()
     plans = []
@@ -158,6 +158,10 @@ def home():
                            form=form,
                            plans=plans)
 
+
+@app.route("/")
+def root():
+    return redirect(url_for("home"))
 
 if __name__ == '__main__':
     with app.app_context():

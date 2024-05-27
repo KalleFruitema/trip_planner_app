@@ -7,13 +7,14 @@
         <title>{% block title %}{% endblock %} | Trip planner</title>
         <meta name="description" content="Trip planner for groups">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../static/style.css">
+        <link rel="stylesheet" href="/static/style.css">
     </head>
     <div class="topnav">
-        <a href="/">Home</a>
+        <a href="/home">Home</a>
         {% if session["logged_in"] %}
             <a href="/create_plan">Create plan</a>
             <a href="/logout">Logout</a>
+            <div class="logged_in_user">Logged in as {{ session["username"] }}</div>
         {% else %}
             <a href="/login">Login</a>
             <a href="/register">Register</a>
@@ -37,7 +38,7 @@
             {% endwith %}
 
         </div>
-        {% block content %}{% endblock %}
+        <div class="page_container">{% block content %}{% endblock %}</div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

@@ -4,7 +4,7 @@
 
 {% block content %}
     {% if session["logged_in"] %}
-
+        <h1>Home</h1>
         Welcome home, {{ session["username"] }}!
         <button onclick="window.location.href = '/logout'" id="logout_button">Logout</button><br>
         <button onclick="window.location.href = '/create_plan'" id="create_plan_button">Create new plan</button><br>
@@ -22,11 +22,14 @@
                 <input type="submit" value="Join a plan">
             </div>
         </form>
-        
+        <h2>Your plans</h2>
         <ul class="my_plan_list">
+            {% if plans|length == 0 %}
+                <p>You currently have no plans!</p>
+            {% endif %}
             {% for plan in plans %}
                 <li class="my_plan_element">
-                    <button onclick="location.href = './plan/{{ plan.plan_code }}'" id="my_plan_button">{{ plan.name }}</button>
+                    <button onclick="window.location.href = '/plan/{{ plan.plan_code }}/overview'" id="my_plan_button">{{ plan.name }}</button>
                 </li>
             {% endfor %}
         </ul>
